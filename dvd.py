@@ -5,12 +5,18 @@ La classe DVD qui sert de modèle à la base de données
 
 
 class DVD:
-    def __init__(self, titre: str, realisateur: str, annee: int) -> None:
+    def __init__(self, id: int, titre: str, realisateur: str, annee: int) -> None:
+        self.__id = id
         self.__titre = titre
         self.__realisateur = realisateur
         self.__annee = annee
 
-    # Getter et setter de l'attribue __titre
+    # Getter et setter de l'attribut __id
+    @property
+    def id(self) -> int:
+        return self.__id
+    
+    # Getter et setter de l'attribut __titre
     @property
     def titre(self) -> str:
         return self.__titre
