@@ -54,7 +54,13 @@ class DVDManager:
             print(f"Erreur lors de la connexion à la table : {e}")
             raise
 
-    # Methode d'instance create_table()
+    # Méthode d'instance show_table()
+
+    def show_table(self) -> list[DVD]:
+        request: str = "SELECT * FROM dvd ORDER BY titre ASC"
+        return self.cursor.execute(request).fetchall()
+
+    # Méthode d'instance create_table()
 
     def create_table(self) -> str:
         request: str = '''
