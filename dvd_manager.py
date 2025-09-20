@@ -54,6 +54,21 @@ class DVDManager:
             print(f"Erreur lors de la connexion à la table : {e}")
             raise
 
+    # Methode d'instance create_table()
+
+    def create_table(self) -> str:
+        request: str = '''
+        CREATE TABLE IF NOT EXISTS dvd(
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            titre VARCHAR(250) NOT NULL,
+            realisateur VARCHAR(250) NOT NULL,
+            annee INTEGER NOT NULL CHECK (annee >= 1930 AND annee <= 2025)
+        )
+        '''
+        self.cursor.execute(request)
+
+        return "Table créée ou déjà existante."
+
 
 if __name__ == "__main__":
     dvdm = DVDManager()
