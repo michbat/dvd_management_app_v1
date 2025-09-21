@@ -175,7 +175,7 @@ class DVDManager:
             except AssertionError as e:
                 print(e)
 
-    def __del__(self):
+    def __del__(self) -> None:
         '''
         Destructeur appelé automatiquement lors de la destruction de l'objet.
         S'assure que la connexion à la base de données est correctement fermée
