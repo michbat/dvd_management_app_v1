@@ -35,8 +35,13 @@ def main():
     # Ajout d'un DVD et affichage après ajout
 
     # dvd_manager.ajouter_dvd(DVDManager.get_dvd_to_insert())
-    dvds = dvd_manager.recuperer_dvd()
-    afficher_dvd(dvds)
+    # dvds = dvd_manager.recuperer_dvd()
+    # afficher_dvd(dvds)
+
+    # Suppression d'un DVD
+    dvd_manager.supprimer_dvd(11)
+    # dvds = dvd_manager.recuperer_dvd()
+    # afficher_dvd(dvds)
 
 
 if __name__ == "__main__":

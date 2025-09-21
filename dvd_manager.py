@@ -71,15 +71,45 @@ class DVDManager:
         return "Table créée ou déjà existante."
 
     # Méthode d'instance ajouter_dvd(dvd)
-    def ajouter_dvd(self, dvd: tuple):
-
-        self.cursor.execute(
-            "INSERT INTO dvd (titre,realisateur,annee) VALUES (?,?,?)", dvd
-        )
-        self.cursor.connection.commit()
+    def ajouter_dvd(self, dvd: tuple) -> bool:
+        try:
+            self.cursor.execute(
+                "INSERT INTO dvd (titre,realisateur,annee) VALUES (?,?,?)", dvd
+            )
+            self.cursor.connection.commit()
+            
+            # Vérifier si l'insertion a réussi
+            if self.cursor.rowcount > 0:
+                print(f"\nDVD ajouté avec succès (ID: {self.cursor.lastrowid})\n")
+                return True
+            else:
+                print("\nÉchec de l'ajout du DVD\n")
+                return False
+                
+        except sqlite3.Error as e:
+            print(f"\nErreur lors de l'ajout du DVD: {e}\n")
+            return False
 
     # Méthode d'instance supprimer_dvd(id)
+    def supprimer_dvd(self, id: int) -> bool:
+        try:
+            request: str = "DELETE FROM dvd WHERE id = ?"
+            self.cursor.execute(request, (id,))
+            self.cursor.connection.commit()
+            
+            # Vérifier si la suppression a réussi
+            if self.cursor.rowcount > 0:
+                print(f"\nDVD avec ID {id} supprimé avec succès\n")
+                return True
+            else:
+                print(f"\nAucun DVD trouvé avec l'ID {id}\n")
+                return False
+                
+        except sqlite3.Error as e:
+            print(f"\nErreur lors de la suppression du DVD: {e}\n")
+            return False
 
+    # Méthode de class get_dvd_to_insert() servant à récupérer les données du DVD à insérer
     @classmethod
     def get_dvd_to_insert(cls) -> tuple[str, str, int]:
         print(f"\n{'*' * 10} AJOUT D'UN DVD {'*' * 10}\n")
@@ -94,7 +124,6 @@ class DVDManager:
                     raise AssertionError(
                         "L'année de sortie doit être comprise entre 1930 et 2025")
                 # La méthode de classe utilitaire renvoit un tuple
-                print("\nLe DVD a été rajouté!\n")
                 return (titre, realisateur, annee)
             except ValueError:
                 print("Vous devez saisir un entier SVP ")
