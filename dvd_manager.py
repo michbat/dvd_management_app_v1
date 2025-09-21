@@ -64,6 +64,19 @@ class DVDManager:
         # On retourne les objets DVD
         return dvd_objects
 
+    def recuperer_un_dvd(self, id: int) -> "DVD":
+        '''
+        Récupère un DVD de la base de données grâce à une ID et le retourne sous forme d'un objet
+        DVD
+        '''
+        request: str = "SELECT * FROM dvd WHERE id = ?"
+        self.cursor.execute(request, (id,))
+        result = self.cursor.fetchone()
+        dvd_object = DVD(result['id'], result['titre'],
+                         result['realisateur'], result['annee'])
+
+        return dvd_object
+
     def create_table(self) -> str:
         '''
         Crée la table dvd dans la base de données si elle n'existe pas déjà.
