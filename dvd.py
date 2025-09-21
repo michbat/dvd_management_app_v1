@@ -15,8 +15,8 @@ class DVD:
     @property
     def id(self) -> int:
         return self.__id
-    
-    # Getter et setter de l'attribut __titre
+
+    # Getter et setter de l'attribut __titre +
     @property
     def titre(self) -> str:
         return self.__titre
